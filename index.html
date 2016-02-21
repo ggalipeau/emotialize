@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+        <title>Emotialize</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='https://fonts.googleapis.com/css?family=RobotoDraft:regular,bold,thin,light,mediumn' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <script type="text/javascript"  src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript"  src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    
+        <script type="text/javascript" src="/libs/paperCapabilities.js"></script>
+        <script type="text/javascript" src="/libs/paper-transition.js"></script>
+        <script type="text/javascript" src="/libs/xml2json.min.js"></script>
+
+
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script> 
+  
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+        
+        <script src="//code.highcharts.com/highcharts.js"></script>
+        <script src="//code.highcharts.com/modules/heatmap.js"></script>
+        <script src="//code.highcharts.com/modules/exporting.js"></script>
+        
+        <style type="text/css">
+            .modal-content iframe{
+                margin: 0 auto;
+                display: block;
+            }
+        </style>
+        
+         <script type="text/javascript">
+
+             $(document).ready(function(){
+                var modalUrl = '//www.youtube.com/embed/YE7VzlLtp-4';
+                $("#myModal").on('hide.bs.modal', function(){
+                    $("#cartoonVideo").attr('src', '');
+                });
+                
+                $("#myModal").on('show.bs.modal', function(){
+                    $("#cartoonVideo").attr('src', modalUrl);
+                });
+             });
+            
+          
+        
+        </script>
+        
+ 
+    </head>
+    <body>
+    
+        <header>
+            <h1>Emotialize</h1>
+            <h2>Analyze Emotions</h2>
+            <div class="hackathon-video">
+                Hackathon judges, please click here for our introduction video <br />
+                <a class="youtube btn btn-default" href="#myModal" title="Hackathon Introduction" data-toggle="modal">
+                    Intro Video
+                </a>
+            </div>
+            
+           
+            
+        </header>
+        
+    
+        <div class="container">
+           <div class="row">
+                <div class="col-md-6">
+                
+                    <div class="progress vertical">
+                      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+                        <span class="sr-only">0% Complete</span>
+                      </div>
+                    </div>
+                    <div class="video">
+                    
+                    	<div id="heroPanel" class="hero__panel">
+                    		
+                    		<svg id="heroLoader" class="hero__loader spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                               <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                            </svg>
+                            
+                            <div id="heroIcon" class="hero__icon"></div>
+                        </div>
+                        
+                     
+                    	<video id="video" autoplay></video>
+                        
+                        
+                    	
+                    	<span class="faceinfo"><span data-type="tiparrow"></span><span class="facecode"></span></span>
+                        <canvas id="canvas"></canvas>
+                    	<button class="fab" id="snap">
+                    		Snap
+                    		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="3.2"/>
+                                <path d="M9 2l-1.83 2h-3.17c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-12c0-1.1-.9-2-2-2h-3.17l-1.83-2h-6zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                                <path d="M0 0h24v24h-24z" fill="none"/>
+                            </svg>
+                    	</button>
+                    	
+                	  
+
+                    </div>
+                
+                    <div class="actions" style="padding-top: 5px">
+                        <button class="action new">Continue Auto Capture</button>
+                    </div>
+                  
+                    <div class="well" style="margin-top: 30px;">
+                       <h4>How to Use</h4>
+                       <ul>
+                           <li>Make sure you accept the Webcam prompt from your browser</li>
+                           <li>Emotialize takes pictures when the progress bar is finshed based face detection</li>
+                           <li>The images are processed for emotions</li>
+                           <li>The aggregates are shown in the chart area</li>
+                           <li>You can view your data by Daily or Hourly charts</li>
+                           <li>
+                                You can take a manual picture by choosing the camera 
+                                <ul style="margin-left: 20px">
+                                    <li>Automated pictures will stop while in camera mode</li>
+                                    <li>Choose 'Continue Auto Capture' to start automated pictures again</li>
+                                    <li>Hover over your face to see that images emotions in camera mode</li>
+                                </ul>
+                               
+                           </li>
+                       </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                
+                    <div class="graph-column" >
+                    
+                        <div class="form-group">
+                          <label for="graph-type" style="color: #fff">Select Analysis Type:</label>
+                            <select class="form-control" id="graph-type">
+                              <option value="daily" selected="selected">Daily</option>
+                              <option value="hourly">Hourly</option>
+                            </select> 
+                        </div>
+    
+                   
+                                
+                       <div id="chart-container-daily" style="height: 400px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
+                       <div id="chart-container-hour" style="height: 600px; min-width: 310px; max-width: 800px; margin: 0 auto"></div>
+                      
+				
+                       <button id="clearData" class="action new" style="float: right">Clear Data</button>
+                       
+                       <br/><br/>
+                        <h4>Browser Support</h4>
+                       <table class="browserSupport">
+        					<tbody>
+        						<tr>
+        							<td><img title="Google Chrome" src="/images/chrome.png"></td>
+        							<td><img title="Mozilla Firefox" src="/images/firefox.png"></td>
+        							<td><img title="Internet Explorer" src="/images/ie.png"></td>
+        							<td><img title="Opera" src="/images/opera.png"></td>
+        							<td><img title="Safari" src="/images/safari.png"></td>
+        						</tr>
+        						<tr>
+        							<td class="partial">since 21</td>
+        							<td class="full">since 17</td>
+        							<td class="none">no</td>
+        							<td class="full">since 12</td>
+        							<td class="none">no</td>
+        						</tr>
+        					</tbody>
+        				</table>
+        				<div style="font-size: .8em"><b>Hackathon Note:</b> Chrome needs https for the protocol to work. We were only provided http in the koding environment. For production, this would be hosted on https. In the future we will impelment a flash fallback for IE and Safari.</div>
+        				
+                   </div>
+                 </div>
+             </div>
+         </div>
+         
+         <footer class="container" >
+            <div class="row">
+                <div class="col-md-12" >
+                    <p  class="well" style="text-align:center">
+                        Privacy Notice: Privacy is our upmost importance for Emotialize. We do not store any data on any server. All data is stored on your machine. And, this does not include any images or personal identifiable information. The only data stored is the raw emotion data points.
+                    </p>
+                </div>
+             </div>
+         </footer>
+         
+         
+          <!-- Intro Video Modal HTML -->
+        <div id="myModal" class="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Emotialize Hackathon Introduction</h4>
+                    </div>
+                    <div class="modal-body">
+                        <iframe id="cartoonVideo" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+       
+    
+
+    
+        <script src="script.js"></script>
+    </body>
+</html>
